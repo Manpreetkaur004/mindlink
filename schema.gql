@@ -1,0 +1,57 @@
+type User @table {
+  username: String!
+  email: String!
+  passwordHash: String!
+  createdAt: Timestamp!
+  displayName: String
+  bio: String
+  profilePictureUrl: String
+  privacySettings: String
+}
+
+type MoodLog @table {
+  user: User!
+  logDate: Date!
+  moodLevel: Int!
+  energyLevel: Int!
+  createdAt: Timestamp!
+  notes: String
+}
+
+type Activity @table {
+  user: User!
+  activityName: String!
+  activityDate: Date!
+  createdAt: Timestamp!
+  description: String
+  category: String
+}
+
+type Resource @table {
+  title: String!
+  contentType: String!
+  url: String!
+  createdAt: Timestamp!
+  description: String
+  durationMinutes: Int
+  author: String
+  tags: [String]
+}
+
+type UserResource @table(key: ["user", "resource"]) {
+  user: User!
+  resource: Resource!
+  createdAt: Timestamp!
+  isFavorite: Boolean
+  completedCount: Int
+}
+
+type WellnessGoal @table {
+  user: User!
+  goalName: String!
+  targetDate: Date!
+  status: String!
+  createdAt: Timestamp!
+  description: String
+  progressNotes: String
+}
